@@ -112,6 +112,7 @@
       align-items: center;
       max-width: 100%;
       z-index: 2;
+      position: relative;
     }
 
     .gif {
@@ -161,6 +162,24 @@
       filter: brightness(1);
     }
 
+    /* Saat kutusu (sadece main-content içindeyken görünür) */
+    .clock {
+      position: absolute;
+      top: -90px;
+      font-size: 36px;
+      padding: 10px 20px;
+      border-radius: 16px;
+      font-weight: 600;
+      color: transparent;
+      background-color: rgba(0, 0, 0, 0.4);
+      background-clip: text;
+      -webkit-background-clip: text;
+      background-image: linear-gradient(135deg, #ff69b4, #222);
+      text-shadow: 0 0 6px #ff69b4aa;
+      user-select: none;
+      z-index: 3;
+    }
+
     @media (max-width: 480px) {
       .start-screen h1 {
         font-size: 28px;
@@ -187,6 +206,12 @@
         width: 22px;
         height: 22px;
       }
+
+      .clock {
+        font-size: 28px;
+        top: -90px;
+        padding: 8px 16px;
+      }
     }
   </style>
 </head>
@@ -203,17 +228,19 @@
 
   <!-- Ana içerik -->
   <div class="main-content" id="mainContent">
+    <!-- Saat yalnızca burada görünür -->
+    <div class="clock" id="clock">--:--</div>
+    
     <audio id="bgMusic" src="Present.mp3" loop></audio>
-
     <img class="gif" src="gif.gif" alt="GIF" />
     <div class="text">Hayat, anılarla güzelleşir.</div>
 
     <div class="socials">
-      <a href="https://instagram.com/sananasgarly" target="_blank" rel="noopener noreferrer">
+      <a href="https://instagram.com/sananasgarly" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" />
         @sananasgarly
       </a>
-      <a href="https://www.tiktok.com/@sanannan15" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.tiktok.com/@sanannan15" target="_blank">
         <img src="https://cdn.worldvectorlogo.com/logos/tiktok-1.svg" alt="TikTok" />
         @sanannan15
       </a>
@@ -233,6 +260,18 @@
         });
       }
     }
+
+    // Saat fonksiyonu (saniyesiz)
+    function updateClock() {
+      const now = new Date();
+      const clock = document.getElementById('clock');
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      clock.textContent = `${h}:${m}`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
   </script>
 </body>
 </html>
