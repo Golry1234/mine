@@ -2,12 +2,14 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sananasgarly</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet" />
   <style>
     * {
-      margin: 0; padding: 0; box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     html, body {
@@ -25,13 +27,14 @@
       position: relative;
       flex-direction: column;
       z-index: 1;
+      padding: 15px;
     }
 
-    /* Arka plan gif */
     body::before {
       content: "";
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: url('back.gif') center center / cover no-repeat;
       filter: brightness(0.3);
       z-index: 0;
@@ -54,45 +57,35 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* Music? yazısı sade ve hover'da değişmesin */
     .start-screen h1 {
-      font-size: 48px;
-      margin-bottom: 40px;
+      font-size: 36px;
+      margin-bottom: 30px;
       letter-spacing: 3px;
       font-weight: 700;
       color: #ccc;
       user-select: none;
       cursor: default;
-      transition: color 0.3s ease;
     }
 
-    .start-screen h1:hover {
-      color: #ccc; /* hover'da değişim yok */
-      text-shadow: none;
-    }
-
-    /* Buton grubu */
     .btn-group {
       display: flex;
       justify-content: center;
-      gap: 30px;
+      flex-wrap: wrap;
+      gap: 20px;
     }
 
-    /* Genel buton stili */
     .btn-group button {
-      padding: 18px 45px;
-      font-size: 22px;
+      padding: 16px 36px;
+      font-size: 20px;
       font-weight: 700;
       border: none;
       border-radius: 16px;
       cursor: pointer;
       transition: background-color 0.25s ease, box-shadow 0.25s ease;
       user-select: none;
-      box-shadow: none;
       color: white;
     }
 
-    /* YES butonu: yeşil */
     .btn-yes {
       background-color: #1db954;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
@@ -103,10 +96,9 @@
       box-shadow: 0 0 8px #178c3f88;
     }
 
-    /* NO butonu: kırmızı */
     .btn-no {
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
       background-color: #e53935;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
     }
 
     .btn-no:hover {
@@ -114,47 +106,47 @@
       box-shadow: 0 0 8px #ab2a2788;
     }
 
-    /* Ana içerik başlangıçta gizli */
     .main-content {
       display: none;
       flex-direction: column;
       align-items: center;
-      max-width: 320px;
-      padding: 20px;
+      max-width: 100%;
       z-index: 2;
     }
 
-    /* GIF ayarları */
     .gif {
-      width: 500px;
+      width: 100%;
+      max-width: 500px;
       border-radius: 10px;
       margin: 20px 0;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
     }
 
-    /* Anlamlı söz */
     .text {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 500;
       margin-bottom: 30px;
       font-style: italic;
       color: #ccc;
+      text-align: center;
+      padding: 0 10px;
     }
 
-    /* Sosyal medya linkleri */
     .socials {
       display: flex;
       justify-content: center;
-      gap: 40px;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-bottom: 20px;
     }
 
     .socials a {
       color: white;
       text-decoration: none;
-      font-size: 18px;
+      font-size: 16px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       transition: color 0.3s ease, transform 0.3s ease;
     }
 
@@ -164,9 +156,37 @@
     }
 
     .socials img {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       filter: brightness(1);
+    }
+
+    @media (max-width: 480px) {
+      .start-screen h1 {
+        font-size: 28px;
+      }
+
+      .btn-group button {
+        font-size: 18px;
+        padding: 14px 30px;
+      }
+
+      .text {
+        font-size: 18px;
+      }
+
+      .socials {
+        gap: 20px;
+      }
+
+      .socials a {
+        font-size: 15px;
+      }
+
+      .socials img {
+        width: 22px;
+        height: 22px;
+      }
     }
   </style>
 </head>
@@ -202,18 +222,14 @@
 
   <script>
     function startApp(playMusic) {
-      // Başlangıç ekranını gizle
       document.getElementById('startScreen').style.display = 'none';
-
-      // Ana içeriği göster
       const main = document.getElementById('mainContent');
       main.style.display = 'flex';
 
       if (playMusic) {
         const music = document.getElementById('bgMusic');
-        // Müziği başlat
         music.play().catch(() => {
-          console.log('Tarayıcı otomatik oynatmayı engelledi. Kullanıcı etkileşimi gerekebilir.');
+          console.log('Tarayıcı otomatik oynatmayı engelledi.');
         });
       }
     }
