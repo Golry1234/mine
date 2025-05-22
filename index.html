@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sananasgarly</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: black;
+      color: white;
+      position: relative;
+      flex-direction: column;
+      z-index: 1;
+    }
+
+    /* Arka plan gif */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: url('back.gif') center center / cover no-repeat;
+      filter: brightness(0.3);
+      z-index: 0;
+      animation: bgLoop 30s linear infinite;
+    }
+
+    @keyframes bgLoop {
+      0% { background-position: center top; }
+      100% { background-position: center bottom; }
+    }
+
+    .start-screen, .main-content {
+      text-align: center;
+      animation: fadeIn 1s ease;
+      z-index: 2;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Music? yazısı sade ve hover'da değişmesin */
+    .start-screen h1 {
+      font-size: 48px;
+      margin-bottom: 40px;
+      letter-spacing: 3px;
+      font-weight: 700;
+      color: #ccc;
+      user-select: none;
+      cursor: default;
+      transition: color 0.3s ease;
+    }
+
+    .start-screen h1:hover {
+      color: #ccc; /* hover'da değişim yok */
+      text-shadow: none;
+    }
+
+    /* Buton grubu */
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    /* Genel buton stili */
+    .btn-group button {
+      padding: 18px 45px;
+      font-size: 22px;
+      font-weight: 700;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: background-color 0.25s ease, box-shadow 0.25s ease;
+      user-select: none;
+      box-shadow: none;
+      color: white;
+    }
+
+    /* YES butonu: yeşil */
+    .btn-yes {
+      background-color: #1db954;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-yes:hover {
+      background-color: #178c3f;
+      box-shadow: 0 0 8px #178c3f88;
+    }
+
+    /* NO butonu: kırmızı */
+    .btn-no {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      background-color: #e53935;
+    }
+
+    .btn-no:hover {
+      background-color: #ab2a27;
+      box-shadow: 0 0 8px #ab2a2788;
+    }
+
+    /* Ana içerik başlangıçta gizli */
+    .main-content {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      max-width: 320px;
+      padding: 20px;
+      z-index: 2;
+    }
+
+    /* GIF ayarları */
+    .gif {
+      width: 500px;
+      border-radius: 10px;
+      margin: 20px 0;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Anlamlı söz */
+    .text {
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 30px;
+      font-style: italic;
+      color: #ccc;
+    }
+
+    /* Sosyal medya linkleri */
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .socials a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .socials a:hover {
+      color: #1da1f2;
+      transform: scale(1.05);
+    }
+
+    .socials img {
+      width: 28px;
+      height: 28px;
+      filter: brightness(1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Başlangıç ekranı -->
+  <div class="start-screen" id="startScreen">
+    <h1>Music?</h1>
+    <div class="btn-group">
+      <button class="btn-yes" onclick="startApp(true)">YES</button>
+      <button class="btn-no" onclick="startApp(false)">NO</button>
+    </div>
+  </div>
+
+  <!-- Ana içerik -->
+  <div class="main-content" id="mainContent">
+    <audio id="bgMusic" src="present.mp3" loop></audio>
+
+    <img class="gif" src="gif.gif" alt="GIF" />
+    <div class="text">Hayat, anılarla güzelleşir.</div>
+
+    <div class="socials">
+      <a href="https://instagram.com/sananasgarly" target="_blank" rel="noopener noreferrer">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" />
+        @sananasgarly
+      </a>
+      <a href="https://www.tiktok.com/@sanannan15" target="_blank" rel="noopener noreferrer">
+        <img src="https://cdn.worldvectorlogo.com/logos/tiktok-1.svg" alt="TikTok" />
+        @sanannan15
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function startApp(playMusic) {
+      document.getElementById('startScreen').style.display = 'none';
+      const main = document.getElementById('mainContent');
+      main.style.display = 'flex';
+
+      if (playMusic) {
+        const music = document.getElementById('bgMusic');
+        music.play().catch(() => {
+          console.log('Autoplay engellendi, kullanıcı etkileşimi gerekli.');
+        });
+      }
+    }
+  </script>
+</body>
+</html>
