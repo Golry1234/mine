@@ -104,7 +104,7 @@
 
     /* NO butonu: kırmızı */
     .btn-no {
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
       background-color: #e53935;
     }
 
@@ -201,14 +201,18 @@
 
   <script>
     function startApp(playMusic) {
+      // Başlangıç ekranını gizle
       document.getElementById('startScreen').style.display = 'none';
+
+      // Ana içeriği göster
       const main = document.getElementById('mainContent');
       main.style.display = 'flex';
 
       if (playMusic) {
         const music = document.getElementById('bgMusic');
+        // Müziği başlat
         music.play().catch(() => {
-          console.log('Autoplay engellendi, kullanıcı etkileşimi gerekli.');
+          console.log('Tarayıcı otomatik oynatmayı engelledi. Kullanıcı etkileşimi gerekebilir.');
         });
       }
     }
